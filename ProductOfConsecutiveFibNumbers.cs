@@ -1,17 +1,17 @@
 public class ProdFib {
       public static ulong[] productFib(ulong prod)
       {
-        ulong f1 = 0;
-        ulong f2 = 0;
+        ulong f1 = 0, f2 = 0, answer = 0;
         
         for(ulong x = 0; x <= prod; x++) {
           f1 = fib(x);
           f2 = fib(x+1);
-          
-          if(prod == f1 * f2) return new ulong[] { f1, f2, 1 };
-          if(prod < f1 * f2) return new ulong[] { f1, f2, 0 };
+          if( f1 * f2 >= prod){
+            if(prod == f1 * f2) answer = 1;
+            break;
+          }
         }
-        return new ulong[] { f1, f2, 0 };
+        return new ulong[] { f1, f2, answer };
       }
       
       private static ulong fib(ulong n){
@@ -20,11 +20,10 @@ public class ProdFib {
         ulong temp = 0;
         
         for(ulong x = 0; x < n; x++){
-          temp = a+b;
+          temp = a;
           a = b;
-          b = temp;
+          b = temp + b;
         }
-        if(n < 2) return n;
-        else return a;
+        return a;
       }
 }
